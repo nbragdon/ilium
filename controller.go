@@ -8,8 +8,7 @@ import (
 type Controller interface{}
 
 type controller struct {
-	UUID             uuid.UUID
-	availableActions []int
+	UUID uuid.UUID
 }
 
 // NewController creates a controller with sensible defaults
