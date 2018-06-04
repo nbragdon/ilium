@@ -40,6 +40,6 @@ func (being *being) DecreaseStat(name string, amount int) {
 	being.Stats[name].Value -= amount
 }
 
-func (being *being) SetStat(name string, amount int) {
-	being.Stats[name].Value -= amount
+func (being *being) SetStat(name string, value int) {
+	being.Stats[name].Value = value
 }

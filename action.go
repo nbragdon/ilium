@@ -17,24 +17,16 @@ func (action *Action) Execute(game *Game) {
 	}
 }
 
-func (action *Action) PayCost(cost *Cost, game *Game) {
-
+func (action *Action) PayCost(being *Being, cost *Cost) {
+	being.DecreaseStat(cost.StatName, cost.Value)
 }
 
 func (action *Action) ApplyEffect(effect *Effect, game *Game) {
 
 }
 
-const COST_MAPPING := map[string]interface{} {
-	"essense": payEssenceCost
-}
-
 const EFFECT_MAPPING := map[string]interface{} {
-	"damage": 
-}
-
-func payEssenceCost(being *Being, cost *Cost, game *Game) {
-	being
+	"damage": dealDamage
 }
 
 func dealDamage(targets *[]Target, effect *Effect, game *Game) {
