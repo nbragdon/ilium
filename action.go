@@ -1,5 +1,9 @@
 package ilium
 
+const EFFECT_MAPPING := map[string]interface{} {
+	"damage": dealDamage
+}
+
 // Action has costs and associated effects as well as when the action can be used
 type Action struct {
 	Being Being
@@ -9,26 +13,25 @@ type Action struct {
 
 func (action *Action) Execute(game *Game) {
 	for _, cost := range action.Ability.Costs {
-		action.PayCost(cost, game)
+		action.PayCost(cost)
 	}
 
-	for _, effect := range action.Effects {
+	for _, effect := range action.Ability.Effects {
 		action.ApplyEffect(effect, game)
 	}
 }
 
-func (action *Action) PayCost(being *Being, cost *Cost) {
-	being.DecreaseStat(cost.StatName, cost.Value)
+func (action *Action) PayCost(cost *Cost) {
+	action.Being.DecreaseStat(cost.StatName, cost.Value)
 }
 
 func (action *Action) ApplyEffect(effect *Effect, game *Game) {
-
+	EFFECT_MAPPING[effect.]
 }
 
-const EFFECT_MAPPING := map[string]interface{} {
-	"damage": dealDamage
-}
 
 func dealDamage(targets *[]Target, effect *Effect, game *Game) {
+	for _, target := range targets {
 
+	}
 }
