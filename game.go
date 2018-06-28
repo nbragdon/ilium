@@ -6,13 +6,13 @@ import (
 
 // Game object to store all game information
 type Game interface {
-	addController(*Controller)
-	addPlayer()
-	addComputer()
-	availableActions(*Controller) []Action
-	nextRound()
-	getActiveController() Controller
-	addAction(*Action)
+	AddController(*Controller)
+	AddPlayer()
+	AddComputer()
+	AvailableActions(*Controller) []Action
+	NextRound()
+	GetActiveController() Controller
+	AddAction(*Action)
 }
 
 type game struct {
@@ -31,37 +31,37 @@ func NewGame() Game {
 	return &game{newUUID, controllers, 1, 0, actions}
 }
 
-func (game *game) addController(controller *Controller) {
+func (game *game) AddController(controller *Controller) {
 	game.controllers = append(game.controllers, controller)
 }
 
-func (game *game) addPlayer() {
+func (game *game) AddPlayer() {
 	game.controllers = append(game.controllers, NewPlayer())
 }
 
-func (game *game) addComputer() {
+func (game *game) AddComputer() {
 	game.controllers = append(game.controllers, NewComputer())
 }
 
-func (game *game) availableActions(controller *Controller) []Action {
+func (game *game) AvailableActions(controller *Controller) []Action {
 	return make([]Action, 0)
 }
 
-func (game *game) nextRound() {
+func (game *game) NextRound() {
 	game.activeControllerIndex = (game.activeControllerIndex + 1) % uint8(len(game.controllers))
 	game.round++
 }
 
-func (game *game) getActiveController() Controller {
+func (game *game) GetActiveController() Controller {
 	return game.controllers[game.activeControllerIndex]
 }
 
-func (game *game) addAction(action *Action) {
-	game.actions = append(game.actions, action)
+func (game *game) AddAction(action *Action) {
+	game.actions = append(game.actions, *action)
 }
 
-func (game *game) executeActions() {
+func (game *game) ExecuteActions() {
 	for i := len(game.actions) - 1; i >= 0; i-- {
-		game.actions[i].
+		game.actions[i].Execute()
 	}
 }

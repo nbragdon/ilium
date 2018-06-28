@@ -12,32 +12,32 @@ type Being interface {
 type being struct {
 	GameObject
 	Abilities []Ability
-	Stats     map[string]Stat
+	Stats     map[string]*Stat
 }
 
 // NewBeing creates a being with sensible defaults
 func NewBeing() Being {
 	abilities := make([]Ability, 0)
-	stats := make(map[string]Stat)
-	being := &being{Ability: abilities, Stats: stats}
+	stats := make(map[string]*Stat)
+	being := &being{Abilities: abilities, Stats: stats}
 	being.Init()
 	return being
 }
 
 func (being *being) AddAbility(ability *Ability) {
-	being.Abilities.append(ability)
+	being.Abilities = append(being.Abilities, *ability)
 }
 
 func (being *being) AddStat(stat *Stat) {
-	being.Stats.append(stat)
+	being.Stats[stat.Name] = stat
 }
 
 func (being *being) IncreaseStat(name string, amount int) {
-	being.Stats[name].Value += amount
+	being.Stats[name].Add(amount)
 }
 
 func (being *being) DecreaseStat(name string, amount int) {
-	being.Stats[name].Value -= amount
+	being.Stats[name].Subtract(amount)
 }
 
 func (being *being) SetStat(name string, value int) {
